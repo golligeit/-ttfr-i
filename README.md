@@ -1,33 +1,33 @@
-# Ættarslóðir – útgáfa 0.1
+# Ættarslóðir — prófunarútgáfa v1
 
-Prófunarforrit fyrir ættfræðisafn byggt á GEDCOM, React/Vite, Supabase og Vercel.
+Íslenskt ættfræðiforrit fyrir GitHub, Vercel og Supabase.
 
-## Setja á GitHub og Vercel
+## Uppsetning
 
-1. Búðu til nýtt **private** repository á GitHub, t.d. `aettarslodir`.
-2. Dragðu allar skrár úr þessari ZIP-skrá inn í repository (rótina), eða notaðu `git init`, `git add .`, `git commit` og `git push`.
-3. Opnaðu [vercel.com/new](https://vercel.com/new), veldu GitHub-repository og `Import`.
-4. Framework: **Vite**; Build Command: `npm run build`; Output Directory: `dist`.
-5. Búðu til nýtt Supabase project á [supabase.com](https://supabase.com). Í SQL Editor keyrirðu `supabase/schema.sql`.
-6. Í Vercel > Project > Settings > Environment Variables seturðu `VITE_SUPABASE_URL` og `VITE_SUPABASE_ANON_KEY` (publishable/anon key, **aldrei service_role key**).
-7. Redeploy í Vercel.
-8. Í Supabase Authentication > Users býrðu til ritstjóra (netfang/lykilorð). Sæktu UUID notandans og keyrðu `insert into public.editors(user_id) values ('UUID');` í SQL Editor.
-9. Opnaðu vefinn, farðu í Gögn og innlestur, skráðu þig inn, lestu `.ged`-skrá og veldu síðan að vista í Supabase.
+1. Settu **innihald þessarar möppu** í rót GitHub repository (ekki ZIP skrána).
+2. Vercel: Import Git Repository, Framework **Vite**, Build command `npm run build`, Output `dist`.
+3. Supabase: nýtt project, SQL Editor → keyra `supabase/schema.sql`.
+4. Vercel → Settings → Environment Variables: `VITE_SUPABASE_URL` og `VITE_SUPABASE_ANON_KEY` (publishable/anon lykill, **aldrei service_role**).
+5. Supabase Authentication: stofna ritstjóra í Users, finna UUID og bæta honum í `public.editors` samkvæmt SQL leiðbeiningum.
+6. Endurbirta Vercel eftir að environment variables eru settar.
 
-## Keyra í eigin tölvu
+## Eiginleikar
 
-`npm install` og síðan `npm run dev`.
+- GEDCOM innlestur í vafra, leit, persónusíður, foreldrar, makar, börn.
+- Búsetulínur (RESI), kort og tímabil, grafreitir (BURI).
+- Skyldleikaleit, ættarmótslisti, tölfræði, heimildir og gæðaskoðun.
+- Supabase gagnageymsla með RLS og ritstjóraaðgangi. Öll ný innflutt gögn eru **einkamál sjálfgefið**.
 
-## Takmarkanir í þessari fyrstu útgáfu
+## Mikilvægar takmarkanir
 
-- GEDCOM 5.5/5.5.1 grunninnlestur: einstaklingar, nöfn, fæðing/dauði, RESI, BURI og fjölskyldutengsl. Sérsniðnar GEDCOM-viðbætur, flóknar heimildir, myndir og fjölskyldutengsl í óstöðluðum útgáfum eru ekki enn fullstudd.
-- Búsetukortið notar fáeinar forstilltar staðsetningar í sýnidæmi. **Raunveruleg landfræðileg staðaskrá og örugg staðsetningargreining þarf að bætast við** áður en kortið virkar fyrir allt Espólín-safnið.
-- Búsetutímabil eru lesin úr GEDCOM RESI/DATE, t.d. `FROM 1880 TO 1900`. Ekkert er áætlað milli óþekktra ára.
-- Innlestur er fyrst staðbundinn. Gögn fara aðeins í Supabase þegar innskráður ritstjóri velur að vista.
-- Allar færslur eru **private** í Supabase sjálfgefið. Ekki birta raunveruleg persónugögn opinberlega fyrr en farið hefur verið yfir heimildir, réttindi og upplýsingar um lifandi fólk.
-- Fyrsta útgáfan inniheldur ekki fullbúið ættarmót, ítarlega skyldleikaleit, skjalasafn eða nákvæma grafreitaskrá. Þetta eru næstu áfangar.
-- Engar aðgangsupplýsingar eða lyklar eru geymdir í ZIP-skránni.
+- Þetta er **prófunarútgáfa**, ekki fullbúið opinbert ættfræðisafn. Innlestur á GEDCOM er grunnstuðningur; prófa þarf Espólín-útflutning sérstaklega og bera saman fjölda og tengsl.
+- Kortið þekkir aðeins staði sem eru í `src/demo.js` → `coords`. Bæta þarf við landfræðilegri staðaskrá fyrir stærri gögn.
+- Skráð búsetuár eru ekki ályktuð út frá fæðingar- eða dánarstað.
+- Ættarmótsskrá sýnir afkomendur, ekki tengiliðaskrá. Skyldleiki sýnir stystu leiðina, ekki allar mögulegar.
+- Ljósmyndaupphleðsla, nákvæm kirkjugarðskort, tvö samtímis tímabil, sjálfvirk ættarslóðaspilun, endurskoðunarsaga og fullkomin stjórnun heimilda eru **ekki fullinnleidd**.
+- Ekki birta persónuupplýsingar um lifandi fólk eða börn án viðeigandi heimildar. Athugið einnig að opinberar persónuskrár geta vísað á aðra einstaklinga í tengslafylkjum.
+- Ekki geyma lykilorð eða Supabase service_role lykil í GitHub.
 
-## Öryggi
+## Sími / GitHub
 
-Supabase Row Level Security er virkt. Ritstjórar eru sérstaklega skráðir í `public.editors`. Aldrei setja `service_role` lykil í Vite/Vercel frontend. Taka regluleg öryggisafrit áður en Espólín-gögn eru flutt inn.
+GitHub í síma getur átt erfitt með möppuupphleðslu. Best er að nota GitHub Codespaces eða tölvu til að setja inn allar möppur. Vercel mun endurbyggja sjálfkrafa eftir commit.
