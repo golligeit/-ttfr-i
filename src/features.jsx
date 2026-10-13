@@ -43,3 +43,31 @@ export function Quality({people}){
  const names=new Map();for(const p of people){const key=p.name.toLocaleLowerCase('is')+'|'+(gedYear(p.birth)||'');names.set(key,[...(names.get(key)||[]),p])}for(const matches of names.values())if(matches.length>1)problems.push(`Möguleg tvískráning: ${matches.map(p=>p.name+' ('+p.id+')').join(', ')}`);
  return <div className="panel"><h2>Gæðaskoðun og tillögur</h2><p>Kerfið bendir á mögulegar villur en sameinar aldrei einstaklinga sjálfkrafa.</p><h3>{problems.length} atriði til yfirferðar</h3>{problems.slice(0,200).map((p,i)=><div className="line" key={i}>{p}</div>)}{!problems.length&&<p>Engin augljós vandamál fundust með þessum reglum.</p>}</div>;
 }
+
+// Comparison uses only dated residence records and dated events; never guesses locations.
+function placesAt(people,year){
+ const counts=new Map();
+ for(const p of people){
+  const birth=gedYear(p.birth),death=gedYear(p.death);
+  if((birth&&year<birth)||(death&&year>death))continue;
+  const residence=(p.events||[]).filter(e=>e.type==='RESI'&&e.place&&(()=>{
+   const years=String(e.date||'').match(/\b(?:1\d{3}|20\d{2})\b/g)?.map(Number)||[];
+   return years.length>=2?year>=years[0]&&year<=years[1]:years.length===1&&year===years[0];
+  })());
+  const events=residence.length?residence:(p.events||[]).filter(e=>['BIRT','DEAT'].includes(e.type)&&e.place&&gedYear(e.date)===year);
+  for(const place of new Set(events.map(e=>e.place)))counts.set(place,(counts.get(place)||0)+1);
+ }
+ return counts;
+}
+export function EraComparison({people}){
+ const [before,setBefore]=useState(1850),[after,setAfter]=useState(1900);
+ const a=useMemo(()=>placesAt(people,before),[people,before]);
+ const b=useMemo(()=>placesAt(people,after),[people,after]);
+ const places=[...new Set([...a.keys(),...b.keys()])].sort((x,y)=>(b.get(y)||0)-(b.get(x)||0)).slice(0,100);
+ return <div className="panel"><h2>Berðu saman tvö tímabil</h2><p>Fjöldi skráðra einstaklinga á hverjum stað á völdum árum. Ekki er ályktað um búsetu þegar ár vantar.</p><div className="twofields"><label>Fyrra ár<input type="number" min="1000" max="2026" value={before} onChange={e=>setBefore(Number(e.target.value))}/></label><label>Seinna ár<input type="number" min="1000" max="2026" value={after} onChange={e=>setAfter(Number(e.target.value))}/></label></div><div className="line"><b>Staður</b><span>{before} / {after}</span></div>{places.map(place=><div className="line" key={place}><b>{place}</b><span>{a.get(place)||0} / {b.get(place)||0}</span></div>)}{!places.length&&<p>Engar staðsetningar skráðar fyrir þessi ár.</p>}</div>;
+}
+export function Journey({people}){
+ const [id,setId]=useState('');const person=people.find(p=>p.id===id);
+ const events=(person?.events||[]).filter(e=>e.place&&['BIRT','RESI','DEAT','BURI'].includes(e.type)).slice().sort((a,b)=>(gedYear(a.date)||9999)-(gedYear(b.date)||9999));
+ return <div className="panel"><h2>Lífshlaup og flutningar</h2><p>Skoðaðu skráða staði einstaklings í tímaröð. Ódagsettir atburðir birtast síðast.</p><select value={id} onChange={e=>setId(e.target.value)}><option value="">Veldu einstakling</option>{people.slice(0,10000).map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>{events.map((e,i)=><div className="line" key={i}><b>{e.place}</b><span>{e.type} · {localDate(e.date)}</span></div>)}{id&&!events.length&&<p>Engir staðir skráðir.</p>}</div>;
+}
