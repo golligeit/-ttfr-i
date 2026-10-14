@@ -1,16 +1,15 @@
-# Ættarslóðir – heildargrunnur v2
+# Ættarslóðir v3 – ættingjaskráning
 
-Íslenskt ættfræðiforrit með GEDCOM-innlestri, ættartrjám, skyldleikaleit, tímakorti, lífshlaupi, samanburði tveggja ára, grafreitum, ættarmótum, tölfræði, heimildayfirliti og gæðaskoðun.
+Nýtt: opna einstakling í **Einstaklingar** eða **Ættartengsl**, velja **Skrá barn / maka / föður eða móður / systkini**. Leita að fyrirliggjandi einstaklingi eða stofna nýjan. Við barn er sérstaklega spurt hvort maki eigi að vera hitt foreldrið. Aldurs- og dagsetningaviðvaranir, valfrjáls heimild, og gagnkvæm tengsl. Breytingar vistast í Supabase aðeins ef safnið er lesið úr Supabase og ritstjóri er innskráður; annars aðeins í vaframinni og tapast við endurhleðslu. Þessi útgáfa notar fyrirliggjandi SQL-skema úr v2.
 
 ## Uppsetning
-1. Settu innihald ZIP í rót GitHub repository (möppurnar `src` og `supabase` þurfa að haldast).
-2. Tengdu GitHub við Vercel. Framework: Vite. Build: `npm run build`. Output: `dist`.
-3. Keyrðu `supabase/schema.sql` í Supabase SQL Editor.
-4. Settu `VITE_SUPABASE_URL` og `VITE_SUPABASE_ANON_KEY` í Vercel Environment Variables. Aldrei setja service_role í vafrann.
-5. Stofnaðu ritstjóra í Supabase Auth og bættu UUID hans í `public.editors`.
 
-## Öryggi og gögn
-Færslur sem eru fluttar inn í Supabase eru sjálfgefið óopinberar. Aðeins ritstjórar mega breyta gögnum. Ekki opna gögn um lifandi einstaklinga án heimildar. Fyrir 20–50 þúsund færslur þarf síðuskiptingu við gagnalestur og að prófa innflutning á raunverulegri Espólín-skrá.
+1. Afþjappa og setja innihald rótarmöppunnar í GitHub repository (ekki setja ZIP sjálfa inn).
+2. Í Supabase SQL Editor keyra `supabase/schema.sql` ef það hefur ekki verið gert áður. **Ekki keyra á óþekktan gagnagrunn án þess að skoða SQL fyrst.**
+3. Setja `VITE_SUPABASE_URL` og `VITE_SUPABASE_ANON_KEY` í Vercel Environment Variables og endurbyggja.
+4. Stofna ritstjóra í Supabase Authentication og veita honum aðgang í `public.editors` samkvæmt SQL-athugasemdum.
+5. Skrá inn í forritið og velja **Lesa úr Supabase** áður en skráð er, til að tryggja varanlega vistun.
 
-## Enn ekki fullbúið
-Nákvæm staðsetning allra íslenskra bæja (nú er takmörkuð `coords`-skrá), myndaupphleðsla, fullkomin heimildastjórnun, grafreitakort með leiðisnúmerum, aðgangsstýring á einstaka persónu, sjálfvirk tillögusamruni og sjónræn hreyfimynd af flutningum. Þetta er umfangsmikill virkni-grunnur, ekki fullprófað framleiðslukerfi.
+## Takmarkanir
+
+Ekki staðfest full Vercel build í þessu umhverfi (npm dependency installation ekki tiltæk). Ekki fullgert öryggis-/persónuverndarmat. Systkinatenging notar skráða foreldra þess einstaklings sem opinn er. Nýjar færslur eru sjálfgefið ekki opinberar. Sumar aðgerðir í v2 eru enn frumgerðir. GEDCOM-skrá ekki innifalin.
