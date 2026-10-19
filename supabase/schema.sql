@@ -51,3 +51,8 @@ create policy "Editors delete" on public.people for delete to authenticated usin
 -- After creating an Auth user, assign editor manually in SQL editor:
 -- insert into public.editors(user_id) values ('AUTH_USER_UUID');
 -- Do not set public_visible=true in bulk without a legal/privacy review.
+
+-- v6: varðveitir Espólín-frumtexta og fæðingarstað við vistun.
+alter table public.people add column if not exists birth_place text not null default '';
+alter table public.people add column if not exists espolin_text text not null default '';
+alter table public.people add column if not exists source_note text not null default '';
