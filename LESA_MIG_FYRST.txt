@@ -1,0 +1,12 @@
+ÆTTARSLÓÐIR v6 – VINNUSKJÁR
+
+1. Haldið er í React-verkefnið og hliðarvalmyndina.
+2. Kort er falið í valmynd og aðalviðmóti (staðagögn eru áfram í skrám).
+3. Einstaklingsspjald opnast með leit og með því að smella á foreldra, systkini, maka eða börn.
+4. Til baka fer á síðasta spjald.
+5. Breyta einstaklingi er aðgengilegt. Breytingar í staðbundnu safni eru EKKI varanlegar fyrr en þær eru fluttar í Supabase.
+6. Supabase-vistun krefst VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, innskráningar og viðeigandi RLS.
+7. Keyrið supabase/schema.sql aðeins eftir yfirferð á núverandi gagnagrunni; keyrið supabase/V6_UPPFÆRSLA.sql ef dálka vantar.
+8. Ekki setja espolin_full.json eða SQLite-einkagagnagrunn í public/GitHub.
+9. Innflutningur á 113.529 einstaklingum tekur tíma og getur verið háður takmörkunum Supabase.
+10. Ekki er hægt að fullyrða að sameiginleg vistun sé virk án prófunar í þínu Supabase-umhverfi.
