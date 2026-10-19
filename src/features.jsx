@@ -1,18 +1,20 @@
 import React,{useMemo,useState} from 'react';
 import {gedYear,localDate} from './gedcom';
+import PersonSearch from './PersonSearch';
 
-export function Kinship({people}){
+export function Kinship({people,onOpenPerson}){
  const [a,setA]=useState(''),[b,setB]=useState('');
- const byId=useMemo(()=>new Map(people.map(p=>[p.id,p])),[people]);
- const path=useMemo(()=>{
+ const byId=useMemo(()=>new Map(people.map(p=>[String(p.id),p])),[people]);
+ const result=useMemo(()=>{
   if(!a||!b)return null;
-  const queue=[[a]],seen=new Set([a]);
-  while(queue.length){const p=queue.shift(),last=p[p.length-1];if(last===b)return p;
-   const person=byId.get(last);if(!person)continue;
-   for(const id of [...(person.parents||[]),...(person.children||[]),...(person.spouses||[])])if(!seen.has(id)&&byId.has(id)){seen.add(id);queue.push([...p,id]);}
-  }return null;
+  const ancestors=(start)=>{const found=new Map([[String(start),[String(start)]]]);const queue=[String(start)];let pos=0;
+   while(pos<queue.length){const id=queue[pos++],chain=found.get(id);for(const parent of byId.get(id)?.parents||[]){const pid=String(parent);if(!byId.has(pid)||found.has(pid))continue;found.set(pid,[...chain,pid]);queue.push(pid)}}return found};
+  const left=ancestors(a),right=ancestors(b);let best=null;
+  for(const [id,l] of left){const r=right.get(id);if(!r)continue;const score=l.length+r.length-2;const balance=Math.max(l.length,r.length);if(!best||score<best.score||(score===best.score&&balance<best.balance))best={id,left:l,right:r,score,balance}}
+  return best;
  },[a,b,byId]);
- return <div className="panel"><h2>Hvernig eru þau skyld?</h2><p>Veldu tvo einstaklinga og sjáðu stystu skráðu tengingu þeirra. Þetta er ekki endilega eina tengingin.</p><div className="twofields"><label>Fyrri einstaklingur<select value={a} onChange={e=>setA(e.target.value)}><option value="">Veldu einstakling</option>{people.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label><label>Seinni einstaklingur<select value={b} onChange={e=>setB(e.target.value)}><option value="">Veldu einstakling</option>{people.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label></div>{a&&b&&(path?<div className="path">{path.map((id,i)=><div key={i} className="pathitem"><b>{byId.get(id)?.name}</b>{i<path.length-1&&<span>↓</span>}</div>)}</div>:<p>Engin skráð tenging fannst í þessum gögnum.</p>)}</div>;
+ const card=(id)=>{const p=byId.get(id);return <button type="button" className="kin-person" key={id} onClick={()=>onOpenPerson?.(id)} title="Opna einstaklingsspjald"><strong>{p?.name||id}</strong><small>{localDate(p?.birth)||''}</small></button>};
+ return <div className="panel"><h2>Hvernig eru þau skyld?</h2><p>Veldu tvo einstaklinga. Ættartréð sýnir leið beggja að næsta sameiginlega forföður samkvæmt skráðum foreldratengingum. Smelltu á hvaða nafn sem er til að opna einstaklingsspjaldið.</p><div className="twofields"><PersonSearch people={people} value={a} onChange={setA} label="Fyrri einstaklingur"/><PersonSearch people={people} value={b} onChange={setB} label="Seinni einstaklingur"/></div>{a&&b&&(result?<div className="kin-tree"><h3>Sameiginlegur forfaðir</h3><div className="kin-root">{card(result.id)}</div><div className="kin-branches"><div className="kin-branch"><h4>Fyrri einstaklingur</h4>{result.left.slice(0,-1).reverse().map((id,i)=><React.Fragment key={id}><span className="kin-line">│</span>{card(id)}</React.Fragment>)}</div><div className="kin-branch"><h4>Seinni einstaklingur</h4>{result.right.slice(0,-1).reverse().map((id,i)=><React.Fragment key={id}><span className="kin-line">│</span>{card(id)}</React.Fragment>)}</div></div><p className="kin-note">{result.score} kynslóðaskref samtals. Mögulegt er að fleiri sameiginlegir forfeður séu skráðir.</p></div>:<p>Enginn sameiginlegur forfaðir fannst í skráðum foreldratengingum.</p>)}</div>;
 }
 export function Statistics({people}){
  const years=people.map(p=>gedYear(p.birth)).filter(Boolean);
@@ -69,5 +71,5 @@ export function EraComparison({people}){
 export function Journey({people}){
  const [id,setId]=useState('');const person=people.find(p=>p.id===id);
  const events=(person?.events||[]).filter(e=>e.place&&['BIRT','RESI','DEAT','BURI'].includes(e.type)).slice().sort((a,b)=>(gedYear(a.date)||9999)-(gedYear(b.date)||9999));
- return <div className="panel"><h2>Lífshlaup og flutningar</h2><p>Skoðaðu skráða staði einstaklings í tímaröð. Ódagsettir atburðir birtast síðast.</p><select value={id} onChange={e=>setId(e.target.value)}><option value="">Veldu einstakling</option>{people.slice(0,10000).map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>{events.map((e,i)=><div className="line" key={i}><b>{e.place}</b><span>{e.type} · {localDate(e.date)}</span></div>)}{id&&!events.length&&<p>Engir staðir skráðir.</p>}</div>;
+ return <div className="panel"><h2>Lífshlaup og flutningar</h2><p>Skoðaðu skráða staði einstaklings í tímaröð. Ódagsettir atburðir birtast síðast.</p><PersonSearch people={people} value={id} onChange={setId} label="Leita að einstaklingi"/>{events.map((e,i)=><div className="line" key={i}><b>{e.place}</b><span>{e.type} · {localDate(e.date)}</span></div>)}{id&&!events.length&&<p>Engir staðir skráðir.</p>}</div>;
 }
