@@ -1,1 +1,0 @@
-Espolin-gogn: 113529 einstaklingar. data/people.json er tengt vid app.js. VARUD: Personuupplysingar um lifandi folk, ekki birta opinberlega an yfirferdar.
