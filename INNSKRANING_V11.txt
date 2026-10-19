@@ -1,0 +1,13 @@
+AETTARSLODIR v11 - INNSKRANING
+
+Vefurinn biður um notandanafn og lykilord i innbyggdum innskraningarglugga vafrans.
+
+1. I Vercel > Project > Settings > Environment Variables, baettu vid:
+   AETT_LOGIN_USER = Halli
+   AETT_LOGIN_PASSWORD = (settu sterkt, nytt lykilord her)
+2. Merktu Production og redeploy-aðu verkefninu.
+3. Opnadu vefinn i einkaglugga til ad profa ad hann opnist EKKI an innskraningar.
+
+Ath: PIN-kodi med 4 tolum er ekki oruggur sem lykilord a opinberum vef. Ekki setja lykilord i GitHub, VITE_ breytur eda .env skrar sem fara i repo.
+
+Thessi veflokun verndar Vercel-vefinn og skrar sem hann afgreidir. Hun veitir EKKI sjalfkrafa Supabase ritstjorarettindi og verndar EKKI opna Supabase API endapunkta. Supabase RLS og serstakur adgangur fyrir breytingar tharfast afram. Ekki birta einkagogn um lifandi einstaklinga an frekari yfirferdar.
