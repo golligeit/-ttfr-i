@@ -1,0 +1,8 @@
+ÆTTARSLÓÐIR V10
+- Skyldleikatré fer eftir foreldratengingum að sameiginlegum forföður; allir einstaklingar á leiðinni smellanlegir.
+- Innflutningskóði v9 varðveittur; dagsetningum er EKKI sjálfkrafa skrifað í Supabase.
+- 314 dagsetningarfærslur í yfirferðarskrá stóðust ártalssamanburð við MENN; 0 stóðust hann ekki.
+- Ártal og nafn eitt og sér réttlæta EKKI 80-90% líkur á réttri persónutengingu; millinöfn og foreldrar þarf að bera saman.
+- Engar núverandi fullar dagsetningar yfirskrifaðar.
+- Dagsetningarskráin er til yfirferðar, ekki sjálfvirks innflutnings.
+- Gagnasafn í Data/people.json er arfleifð; varúð með persónugögn á opinni Vercel/GitHub síðu.

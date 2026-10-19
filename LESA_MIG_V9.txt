@@ -1,0 +1,8 @@
+Ættarslóðir v9
+
+Leit í Skyldleika og Lífshlaupi er nú skrifanleg og leitar í öllu people-fylkinu.
+
+NIDJATAL_ALLAR_DAGSETNINGAR_HEIMILDIR.csv inniheldur allar 90.427 heimildafærslurnar, EKKI 90.427 staðfestar tengingar við Espólín-númer.
+DAGSETNINGAR_SAMSVARANIR_TIL_YFIRFERDAR.csv inniheldur 314 bráðabirgðatengingar sem þurfa yfirferð.
+EKKI flytja allar dagsetningar sjálfkrafa á einstaklinga á grundvelli nafns eins.
+Engar breytingar hafa verið gerðar á Supabase.
