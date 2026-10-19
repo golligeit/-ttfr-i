@@ -1,0 +1,11 @@
+Ættarslóðir v16 – innflutningur fæðingardaga úr niðjatölum
+
+1. Settu verkefnisskrárnar á GitHub og bíddu eftir Vercel-uppfærslu.
+2. Í Ættarslóðum -> Innflutningur velurðu 'Flytja inn fæðingardaga úr niðjatölum (CSV)'.
+3. Veldu faedingardagar_full_nofn_tillogur.csv sem fylgir ZIP.
+4. Yfirfarðu fjölda samþykktra og slepptra færslna áður en þú staðfestir.
+
+Innflutningurinn ber saman Espólín-númer, FULLT nafn og fæðingarár, verndar fullskráða fæðingardaga og skráir heimild í athugasemd.
+Samsvörun nafns og árs er EKKI full staðfesting á réttri persónu.
+Varúð: Núverandi app samstillir óvistaðar breytingar sjálfvirkt þegar Supabase er tengt; skoðaðu niðurstöður áður en þú staðfestir.
+Ekki er búið að uppfæra lifandi gagnagrunn.
