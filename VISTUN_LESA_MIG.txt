@@ -1,0 +1,11 @@
+ÆTTARSLÓÐIR – VARANLEG VISTUN
+1. Setjið VITE_SUPABASE_URL og VITE_SUPABASE_ANON_KEY í Vercel.
+2. Keyrið supabase/schema.sql í Supabase SQL Editor ef ekki þegar gert.
+3. Skráið báða notendur í Supabase Authentication og bætið user_id beggja í public.editors.
+4. Skráið ykkur inn á síðunni undir Gögn og innlestur.
+5. Flytjið safnið einu sinni inn í Supabase með innflutningi og Vista allt safnið.
+6. Veljið Lesa úr Supabase. Þá vistast breytingar á einstaklingsspjaldi í sameiginlegum grunni.
+7. Prófið á tveimur tækjum: breyta nafni, endurhlaða, lesa úr Supabase og sannreyna breytingu.
+ATH: Breytingar á staðbundnum gögnum eru lokaðar til að koma í veg fyrir falska staðfestingu á vistun.
+ATH: Ekkert hefur verið vistað í ykkar raunverulega Supabase-grunn með þessum ZIP-pakka.
+ATH: Ekki birta persónugögn um lifandi fólk opinberlega.
