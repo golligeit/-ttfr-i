@@ -1,0 +1,14 @@
+ÆTTARSLÓÐIR v14 – Vercel bygging + samræming Supabase
+
+1. Settu innihald þessarar möppu í rót GitHub verkefnisins (package.json verður að vera í rót).
+2. Vercel: Root Directory = ./ ; Framework Preset = Vite ; Build = npm run build ; Output = dist.
+3. Ef npm install er enn sleppt: athugaðu Install Command og að Vercel sé ekki með Ignore Build Step.
+4. Keyrðu supabase/V14_EFTIR_GRUNNUPPSETNINGU.sql í Hallgrimuroli SQL Editor.
+5. Stofnaðu notanda í Supabase Authentication > Users, og skráðu UUID í editors með SQL skipuninni neðst í skránni.
+6. Settu VITE_SUPABASE_URL og VITE_SUPABASE_ANON_KEY (publishable/anon lykil) í Vercel.
+7. Fyrir veflokun: AETT_LOGIN_USER og AETT_LOGIN_PASSWORD í Vercel.
+8. Engin sjálfvirk heildarsókn. Staðbundið safn í IndexedDB. Vista gögn / Sækja gögn í Gögn og innlestur.
+
+ATHUGIÐ: Ekki hefur verið hægt að keyra npm build hér þar sem aðgangur að npm registry er lokaður.
+V13 samstilling með 113 þúsund nýjum færslum er ekki ákjósanleg í einni lotu; prófið fyrst með fáum færslum.
+Aðgangur að vefnum með Basic Auth er ekki það sama og Supabase Auth.

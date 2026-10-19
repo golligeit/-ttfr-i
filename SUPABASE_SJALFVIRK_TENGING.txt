@@ -1,0 +1,12 @@
+AETTARSLODIR V12 - SJALFVIRK SUPABASE HLEDLSLA
+
+1. Settu VITE_SUPABASE_URL og VITE_SUPABASE_ANON_KEY i Vercel Environment Variables.
+2. Settu upp supabase/schema.sql i SQL Editor (einungis ef taflan er ekki til).
+3. Supabase Authentication ritstjoraadgangur er annar en Halli/vefvarnar lykilord. Notandinn tharfnast gilds Supabase Auth session til ad lesa einkagogn.
+4. Flyttu inn Espolin-safnid EINU SINNI med Gogn og innlestur -> Vista allt safnid i Supabase.
+5. Eftir thad hladast gognin sjalfkrafa vid opnun med gildu Supabase session. Engin endurtekin handvirk JSON-innlestur.
+6. Hnappurinn Endurhlada ur Supabase er einungis fyrir handvirka endurhledslu.
+
+ATH: Halli innskraning i Vercel middleware stofnar EKKI Supabase Auth session. Ekki nota service_role lykil i VITE_ breytum. RLS verdur ad vera virkt.
+ATH: Ef session er ekki til tharf ad skra sig inn i ritstjorahlutanum. Engin breyting er gerð a raunverulegum gagnagrunni med thessum pakka.
+ATH: Byggingarprof var ekki stadfest vegna timamarka vid uppsetningu npm dependencies.
