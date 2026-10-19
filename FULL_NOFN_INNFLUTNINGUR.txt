@@ -1,0 +1,9 @@
+Ættarslóðir v15 – Full nöfn og millinöfn
+
+1. Settu þessa útgáfu á GitHub/Vercel.
+2. Opnaðu Ættarslóðir og farðu í Innflutningur.
+3. Veldu full_nofn_113529.csv undir Flytja inn full nöfn.
+4. Staðfestu fjölda breytinga. Þær vistast fyrst staðbundið.
+5. Yfirfarðu nöfn, sérstaklega viðurnefni, áður en Vista gögn í Supabase er notað.
+
+Öryggi: CSV er tengt við Espólín-númer; núverandi sérsniðnum nöfnum er ekki breytt.
