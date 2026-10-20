@@ -1,0 +1,9 @@
+AEttarslodir v19 - breytingar fra v18
+1. Einstaklingaleit synir engin nofn fyrr en skrifad er i leitina. Valinn einstaklingur faer adalplass.
+2. 'Upprunalegur Espolin-texti og heimildir' heitir nu 'Adrar upplysingar'.
+3. Buseta og atburdir: breyta, baeta vid og eyda busetu, faedingarstad og grafreit; skra einungis upphafsar. Faedingarstadur samstilltur vid einstakling.
+4. Gaedaskodun: nofn smellanleg og opna einstakling. Eyda einstaklingi felur faersluna og aftengir aettartengsl; geymir tombstone i people.data JSONB til endurheimtar. Ekki sjalfvirk sameining.
+5. Hnappur 'Skoda aettartre' a einstaklingi; velja 1-6 kynslodir aftur og fram, smellanlegir einstaklingar.
+
+ATH: Eyda einstaklingi er mjuk eydding; endurheimtarvidmot og sameining tvískraninga eru ekki innleidd i thessari utgafu. Taka afrit fyrir uppfaerslu.
+Prufun: JSX parsad med TypeScript parser, en Vite bygging ekki stadfest (npm install tok of langan tima).

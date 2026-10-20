@@ -1,0 +1,5 @@
+Ættarslóðir v17 – Dánardagar
+
+Í Innflutningur velurðu Flytja inn dánardaga úr niðjatölum (CSV) og skrána danardagar_full_nofn_tillogur.csv.
+
+Þetta eru sjálfvirkar tillögur, ekki staðfesting á hverjum dánardegi. Skráin byggir aðeins á færslum þar sem bæði fæðing og andlát koma fram á sömu heimildarlínu og fullt nafn var þegar parað við Espólín. Engin núverandi full dagsetning er yfirskrifuð. Athugaðu niðurstöður áður en þú samstillir.
