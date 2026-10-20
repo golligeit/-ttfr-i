@@ -1,0 +1,5 @@
+Ættarslóðir v18 — Leit í Ættarmóti
+
+Í Ættarmót → Undirbúningur ættarmóts er nú leitarreitur í stað langa fellilistans. Leitin notar sama PersonSearch og skyldleikahlutinn og leitar í nöfnum og dagsetningum. Veldu niðurstöðu til að sjá afkomendur og sækja CSV. Öðrum innflutnings- og samstillingarhlutum var ekki breytt.
+
+Settu innihald ZIP á GitHub eins og áður.
