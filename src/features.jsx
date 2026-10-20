@@ -39,11 +39,11 @@ export function Documents({people}){
  const entries=people.flatMap(p=>(p.events||[]).filter(e=>e.note||e.source).map(e=>({person:p,event:e})));
  return <div className="panel"><h2>Heimildir og söguleg skjöl</h2><p>Hér birtast heimildatilvísanir og athugasemdir sem fylgja innlesnum atburðum. Skráa- og ljósmyndageymsla verður tengd við aðgangsstýrða Supabase Storage áður en raunveruleg skjöl eru birt.</p>{entries.slice(0,300).map((x,i)=><div className="line" key={i}><b>{x.person.name} — {x.event.type}</b><span>{x.event.note||x.event.source}</span></div>)}{!entries.length&&<p>Engar heimildatilvísanir í núverandi gögnum.</p>}</div>;
 }
-export function Quality({people}){
- const ids=new Set(people.map(p=>p.id));const problems=[];
- for(const p of people){if(gedYear(p.birth)&&gedYear(p.death)&&gedYear(p.birth)>gedYear(p.death))problems.push(`${p.name}: dánarár á undan fæðingarári`);for(const id of [...(p.parents||[]),...(p.children||[])])if(!ids.has(id))problems.push(`${p.name}: vantar tengdan einstakling ${id}`)}
- const names=new Map();for(const p of people){const key=p.name.toLocaleLowerCase('is')+'|'+(gedYear(p.birth)||'');names.set(key,[...(names.get(key)||[]),p])}for(const matches of names.values())if(matches.length>1)problems.push(`Möguleg tvískráning: ${matches.map(p=>p.name+' ('+p.id+')').join(', ')}`);
- return <div className="panel"><h2>Gæðaskoðun og tillögur</h2><p>Kerfið bendir á mögulegar villur en sameinar aldrei einstaklinga sjálfkrafa.</p><h3>{problems.length} atriði til yfirferðar</h3>{problems.slice(0,200).map((p,i)=><div className="line" key={i}>{p}</div>)}{!problems.length&&<p>Engin augljós vandamál fundust með þessum reglum.</p>}</div>;
+export function Quality({people,onOpenPerson}){
+ const ids=new Set(people.map(p=>String(p.id)));const problems=[];
+ for(const p of people){if(gedYear(p.birth)&&gedYear(p.death)&&gedYear(p.birth)>gedYear(p.death))problems.push({label:'Dánarár á undan fæðingarári',persons:[p]});for(const id of [...(p.parents||[]),...(p.children||[])])if(!ids.has(String(id)))problems.push({label:`Vantar tengdan einstakling ${id}`,persons:[p]});}
+ const names=new Map();for(const p of people){const key=p.name.toLocaleLowerCase('is')+'|'+(gedYear(p.birth)||'');const a=names.get(key)||[];a.push(p);names.set(key,a)}for(const matches of names.values())if(matches.length>1)problems.push({label:'Möguleg tvískráning',persons:matches});
+ return <div className="panel"><h2>Gæðaskoðun og tillögur</h2><p>Smelltu á nafn til að opna einstaklingsspjaldið. Engin sjálfvirk sameining.</p><h3>{problems.length} atriði til yfirferðar</h3>{problems.slice(0,200).map((issue,i)=><div className="line quality-line" key={i}><span>{issue.label}: </span>{issue.persons.map(p=><button className="quality-person" key={p.id} onClick={()=>onOpenPerson?.(p.id)}>{p.name} ({p.id})</button>)}</div>)}{!problems.length&&<p>Engin augljós vandamál fundust.</p>}</div>;
 }
 
 // Comparison uses only dated residence records and dated events; never guesses locations.
