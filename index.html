@@ -1,2 +1,17 @@
 <!doctype html>
-<html lang="is"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="theme-color" content="#103d3c"/><title>Ættarslóðir · Íslenskt ættfræðisafn</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<html lang="is"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="theme-color" content="#103d3c"/><title>Ættarslóðir · Íslenskt ættfræðisafn</title></head><body><div id="root"></div><script>
+(function(){
+ function show(e){
+  var msg=String(e&&e.message||e&&e.reason&&e.reason.message||e&&e.reason||e||'Óþekkt villa');
+  console.error('Ættarslóðir ræsivilla:',msg);
+  var root=document.getElementById('root');if(!root)return;
+  if(root.textContent.trim().length>50)return;
+  root.innerHTML='';var box=document.createElement('div');box.style.cssText='font:16px Arial;padding:22px;max-width:700px;margin:30px auto;background:white;color:#173333;border:2px solid #a33;border-radius:10px';
+  var h=document.createElement('h2');h.textContent='Ættarslóðir – villa við ræsingu';box.appendChild(h);
+  var p=document.createElement('p');p.textContent='Gögnunum í vafranum hefur ekki verið eytt. Ekki hreinsa vafragögn.';box.appendChild(p);
+  var pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;overflow-wrap:anywhere';pre.textContent=msg;box.appendChild(pre);root.appendChild(box);
+ }
+ window.addEventListener('error',function(e){show(e.error||e.message)});
+ window.addEventListener('unhandledrejection',function(e){show(e.reason)});
+})();
+</script><script type="module" src="/src/main.jsx"></script></body></html>
